@@ -9,8 +9,8 @@ use TeamTNT\TNTSearch\Classifier\TNTClassifier;
 class TrainSpamClassifier extends Command
 {
 
-    private const PATH_TO_TRAIN_FILE = '\train_data\spam.csv';
-    private const PATH_TO_CLASSIFIER = 'classifiers\spam.cls';
+    private const PATH_TO_TRAIN_FILE = '/train_data/spam.csv';
+    private const PATH_TO_CLASSIFIER = 'classifiers/spam.cls';
 
     /**
      * The name and signature of the console command.
