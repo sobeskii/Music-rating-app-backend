@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Aerni\Spotify\Exceptions\SpotifyApiException;
+use App\Interfaces\RatingRepositoryInterface;
 use App\Repositories\RatingRepository;
 use App\Services\ReleaseService;
 use Illuminate\Http\JsonResponse;
@@ -14,14 +15,19 @@ class ReleaseController extends Controller
      * @var ReleaseService
      */
     private $releaseService;
+    /**
+     * @var RatingRepositoryInterface
+     */
+    private $ratingRepository;
 
     /**
      * @param ReleaseService $releaseService
      */
-    public function __construct(ReleaseService $releaseService)
+    public function __construct(ReleaseService $releaseService, RatingRepositoryInterface $ratingRepository)
     {
         $this->middleware(['json']);
         $this->releaseService = $releaseService;
+        $this->ratingRepository = $ratingRepository;
     }
 
     /**
@@ -60,7 +66,7 @@ class ReleaseController extends Controller
             $query['release_date'] = $request->release_date;
         }
 
-        $releases = RatingRepository::getBestRatedReleaseIds($query)->paginate($perPage)->toArray();
+        $releases = $this->ratingRepository->getBestRatedReleaseIds($query)->paginate($perPage)->toArray();
 
         return response()->json([
             'releases' => $releases,
