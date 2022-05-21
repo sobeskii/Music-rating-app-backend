@@ -29,7 +29,7 @@ class SpamClassifierStrategy implements ReviewModerationInterface
         if ($classifier_rule != null) {
             if ($classifier_rule->active) {
                 $classifier = new TNTClassifier();
-                $classifier->load('classifiers\spam.cls');
+                $classifier->load(base_path() . '/classifiers/spam.cls');
 
                 $guess = $classifier->predict($review->review);
 
