@@ -13,6 +13,8 @@ class EncryptCookies extends Middleware
      */
     protected $except = [
         'AUTH-TOKEN',
-        'is_banned'
+        'is_banned',
+        'XSRF-TOKEN',
+        'laravel_session'
     ];
 }
