@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['www.music-rating-app.xyz', 'api.music-rating-app.xyz'],
+    'allowed_origins' => ['http://www.music-rating-app.xyz', 'http://api.music-rating-app.xyz'],
 
     'allowed_origins_patterns' => [],
 
