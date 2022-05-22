@@ -233,5 +233,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
     ],
-    'frontend_url'  =>  env('FRONTEND_URL','http://localhost:8080/')
+    'frontend_url'  =>  env('FRONTEND_URL','http://localhost:8080/'),
+    'domain'    =>  env('APP_DOMAIN','localhost')
 ];

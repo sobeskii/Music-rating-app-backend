@@ -46,7 +46,7 @@ class AuthController extends Controller
             return redirect(config('app.frontend_url'))->withCookie($cookie);
         }
 
-        $cookie =  Cookie::make('AUTH-TOKEN', $token->accessToken, 12000,'/',null,null,false);
+        $cookie =  Cookie::make('AUTH-TOKEN', $token->accessToken, 12000,'/',config('app.domain'),null,false);
         Cookie::queue($cookie);
 
         return redirect(config('app.frontend_url'))->withCookie($cookie);
