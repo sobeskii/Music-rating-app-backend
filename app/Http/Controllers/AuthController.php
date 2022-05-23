@@ -43,7 +43,7 @@ class AuthController extends Controller
         try {
             $token = $this->authService->handleUserLogin($spotifyUser);
         } catch (AuthenticationException $e) {
-            $cookie =  Cookie::make('is_banned', true, 12000,'/',config('app.domain'),null,false);
+            $cookie =  Cookie::make('is_banned', true, 1,'/',config('app.domain'),null,false);
             Cookie::queue($cookie);
             return redirect(config('app.frontend_url'))->withCookie($cookie);
         }
