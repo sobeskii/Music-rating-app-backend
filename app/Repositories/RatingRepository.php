@@ -211,7 +211,7 @@ class RatingRepository implements RatingRepositoryInterface
      */
     public function getReviewsUserLiked(User $user)
     {
-        return Rating::computeRatingInfo()->whereHas('likes',function($q) use($user){
+        return Rating::computeRatingInfo($user->id)->whereHas('likes',function($q) use($user){
             $q->where('user_id','=',$user->id);
         })->with(['user','release','release.artist'])
             ->withCount(['flaggedReviewReasons as isFlagged' => function($q){

@@ -35,16 +35,19 @@ class AuthController extends Controller
         try {
             $spotifyUser = Socialite::driver('spotify')
                 ->stateless()->user();
-        } catch (ClientException $exception) {
-            return response()->json(['error' => 'Invalid credentials provided.'], 422);
+        } catch (\Exception $exception) {
+            $cookie =  Cookie::make('invalid_credentials', true, 2,'/',config('app.domain'),null,false);
+            Cookie::queue($cookie);
+            return redirect(config('app.frontend_url'))->withCookie($cookie);
         }
         try {
             $token = $this->authService->handleUserLogin($spotifyUser);
         } catch (AuthenticationException $e) {
-            $cookie =  Cookie::make('is_banned', true, 12000,'/',null,null,false);
+            $cookie =  Cookie::make('is_banned', true, 12000,'/',config('app.domain'),null,false);
             Cookie::queue($cookie);
             return redirect(config('app.frontend_url'))->withCookie($cookie);
         }
+
 
         $cookie =  Cookie::make('AUTH-TOKEN', $token->accessToken, 12000,'/',config('app.domain'),null,false);
         Cookie::queue($cookie);

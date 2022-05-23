@@ -64,10 +64,11 @@ class Rating extends Model
      * @param $query
      * @return mixed
      */
-    public function scopecomputeRatingInfo($query)
+    public function scopecomputeRatingInfo($query,$user_id = null)
     {
-        $user_id = (Auth::guard('api')->check()) ? Auth::guard('api')->user()->id   :   null;
-
+        if($user_id == null) {
+            $user_id = (Auth::guard('api')->check()) ? Auth::guard('api')->user()->id : null;
+        }
         return $query->withCount(['likes as liked' => function ($q) use($user_id) {
             $q->where('user_id', $user_id)->
             where('is_like', true);
